@@ -7,11 +7,11 @@
     <parent>
         <artifactId>agency</artifactId>
         <groupId>br.com.microservices</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
 
+    <name>order-manager</name>
     <artifactId>order-manager</artifactId>
-
 
     <properties>
         <java.version>1.8</java.version>
@@ -22,6 +22,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
