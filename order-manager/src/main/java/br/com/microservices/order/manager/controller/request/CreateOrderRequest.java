@@ -1,28 +1,19 @@
-package br.com.microservices.order.manager.event;
+package br.com.microservices.order.manager.controller.request;
 
 import java.math.BigDecimal;
 
-public class OrderRequestedEvent {
+public class CreateOrderRequest {
 
-    private String orderId;
     private String customerId;
+
     private BigDecimal amount;
 
-    public OrderRequestedEvent() {
+    public CreateOrderRequest() {
     }
 
-    public OrderRequestedEvent(String orderId, String customerId, BigDecimal amount) {
-        this.orderId = orderId;
+    public CreateOrderRequest(String customerId, BigDecimal amount) {
         this.customerId = customerId;
         this.amount = amount;
-    }
-
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
     }
 
     public String getCustomerId() {
