@@ -1,14 +1,12 @@
-package br.com.microservices.order.manager.repository.entity;
+package br.com.microservices.order.manager.controller.response;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import br.com.microservices.order.manager.repository.entity.Order;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-@Entity(name = "orders")
-public class Order implements Serializable {
+public class OrderResponse implements Serializable {
 
-    @Id
     private String id;
 
     private String customerId;
@@ -17,10 +15,10 @@ public class Order implements Serializable {
 
     private String status;
 
-    public Order() {
+    public OrderResponse() {
     }
 
-    public Order(String id, String customerId, BigDecimal amount, String status) {
+    public OrderResponse(String id, String customerId, BigDecimal amount, String status) {
         this.id = id;
         this.customerId = customerId;
         this.amount = amount;
@@ -57,5 +55,14 @@ public class Order implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public static OrderResponse fromEntity(Order order) {
+        return new OrderResponse(
+                order.getId(),
+                order.getCustomerId(),
+                order.getAmount(),
+                order.getStatus()
+        );
     }
 }
