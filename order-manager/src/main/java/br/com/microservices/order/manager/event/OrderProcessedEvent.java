@@ -1,4 +1,4 @@
-package br.com.microservices.ticket.inventory.event;
+package br.com.microservices.order.manager.event;
 
 public class OrderProcessedEvent {
 
@@ -29,5 +29,4 @@ public class OrderProcessedEvent {
     public void setStatus(String status) {
         this.status = status;
     }
-
 }

@@ -1,4 +1,4 @@
-package br.com.microservices.ticket.inventory.event;
+package br.com.microservices.payment.processor.event;
 
 import java.math.BigDecimal;
 

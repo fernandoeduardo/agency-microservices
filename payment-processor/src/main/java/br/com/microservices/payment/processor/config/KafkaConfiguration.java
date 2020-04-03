@@ -1,4 +1,4 @@
-package br.com.microservices.ticket.inventory.config;
+package br.com.microservices.payment.processor.config;
 
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
@@ -48,7 +48,7 @@ public class KafkaConfiguration {
     @Bean
     public ConsumerFactory<String, String> consumerFactory() {
         Map<String, Object> props = new HashMap<>();
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, "ticket-group-id");
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "payment-group-id");
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrap);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
@@ -56,13 +56,8 @@ public class KafkaConfiguration {
     }
 
     @Bean
-    public NewTopic orderProcessed() {
-        return new NewTopic("processed-orders", 1, (short) 1);
-    }
-
-    @Bean
-    public NewTopic paymentRequested() {
-        return new NewTopic("requested-payments", 1, (short) 1);
+    public NewTopic paymentProcessed() {
+        return new NewTopic("processed-payments", 1, (short) 1);
     }
 
     @Bean
@@ -72,4 +67,6 @@ public class KafkaConfiguration {
         factory.setConsumerFactory(consumerFactory());
         return factory;
     }
+
+
 }
