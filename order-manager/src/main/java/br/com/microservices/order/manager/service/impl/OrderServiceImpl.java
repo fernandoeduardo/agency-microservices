@@ -19,10 +19,10 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements OrderService {
 
     private OrderRepository orderRepository;
-    private KafkaTemplate<String, OrderRequestedEvent> template;
+    private KafkaTemplate<String, Object> template;
 
     public OrderServiceImpl(OrderRepository orderRepository,
-            KafkaTemplate<String, OrderRequestedEvent> template) {
+            KafkaTemplate<String, Object> template) {
         this.orderRepository = orderRepository;
         this.template = template;
     }

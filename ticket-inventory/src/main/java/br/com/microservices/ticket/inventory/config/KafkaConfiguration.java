@@ -1,6 +1,6 @@
-package br.com.microservices.order.manager.config;
+package br.com.microservices.ticket.inventory.config;
 
-import br.com.microservices.order.manager.event.OrderRequestedEvent;
+import br.com.microservices.ticket.inventory.event.OrderRequestedEvent;
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -9,7 +9,6 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.*;
 import org.springframework.kafka.support.serializer.JsonSerializer;
@@ -17,7 +16,6 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 import java.util.HashMap;
 import java.util.Map;
 
-@Configuration
 public class KafkaConfiguration {
 
     @Value(value = "${spring.kafka.bootstrap-servers}")
@@ -28,11 +26,6 @@ public class KafkaConfiguration {
         Map<String, Object> configs = new HashMap<>();
         configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrap);
         return new KafkaAdmin(configs);
-    }
-
-    @Bean
-    public NewTopic message() {
-        return new NewTopic("requested-orders", 1, (short) 1);
     }
 
     @Bean
@@ -48,18 +41,28 @@ public class KafkaConfiguration {
     }
 
     @Bean
-    public KafkaTemplate<String, Object> messageKafkaTemplate() {
-        return new KafkaTemplate<>(messageProducerFactory());
-    }
-
-    @Bean
     public ConsumerFactory<String, String> consumerFactory() {
         Map<String, Object> props = new HashMap<>();
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, "order-group-id");
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "ticket-group-id");
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrap);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         return new DefaultKafkaConsumerFactory<>(props);
+    }
+
+    @Bean
+    public NewTopic orderProcessed() {
+        return new NewTopic("processed-orders", 1, (short) 1);
+    }
+
+    @Bean
+    public NewTopic paymentRequested() {
+        return new NewTopic("requested-payments", 1, (short) 1);
+    }
+
+    @Bean
+    public KafkaTemplate<String, OrderRequestedEvent> messageKafkaTemplate() {
+        return new KafkaTemplate<String, OrderRequestedEvent>(messageProducerFactory());
     }
 
     @Bean
@@ -69,11 +72,4 @@ public class KafkaConfiguration {
         factory.setConsumerFactory(consumerFactory());
         return factory;
     }
-
-
-
-
-
-
-
 }
