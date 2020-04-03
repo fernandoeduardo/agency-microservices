@@ -7,14 +7,16 @@ public class OrderRequestedEvent {
     private String orderId;
     private String customerId;
     private BigDecimal amount;
+    private String creditCard;
 
     public OrderRequestedEvent() {
     }
 
-    public OrderRequestedEvent(String orderId, String customerId, BigDecimal amount) {
+    public OrderRequestedEvent(String orderId, String customerId, BigDecimal amount, String creditCard) {
         this.orderId = orderId;
         this.customerId = customerId;
         this.amount = amount;
+        this.creditCard = creditCard;
     }
 
     public String getOrderId() {
@@ -39,5 +41,13 @@ public class OrderRequestedEvent {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public String getCreditCard() {
+        return creditCard;
+    }
+
+    public void setCreditCard(String creditCard) {
+        this.creditCard = creditCard;
     }
 }
