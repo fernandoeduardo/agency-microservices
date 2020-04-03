@@ -1,6 +1,7 @@
 package br.com.microservices.ticket.inventory.config;
 
-import br.com.microservices.ticket.inventory.event.OrderRequestedEvent;
+import br.com.microservices.ticket.inventory.event.PaymentRequestedEvent;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -9,6 +10,7 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.*;
 import org.springframework.kafka.support.serializer.JsonSerializer;
@@ -16,6 +18,7 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 import java.util.HashMap;
 import java.util.Map;
 
+@Configuration
 public class KafkaConfiguration {
 
     @Value(value = "${spring.kafka.bootstrap-servers}")
@@ -36,8 +39,12 @@ public class KafkaConfiguration {
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrap);
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-
         return new DefaultKafkaProducerFactory<>(configProps);
+    }
+
+    @Bean
+    public KafkaTemplate<String, Object> messageKafkaTemplate1() {
+        return new KafkaTemplate<String, Object>(messageProducerFactory());
     }
 
     @Bean
@@ -58,11 +65,6 @@ public class KafkaConfiguration {
     @Bean
     public NewTopic paymentRequested() {
         return new NewTopic("requested-payments", 1, (short) 1);
-    }
-
-    @Bean
-    public KafkaTemplate<String, OrderRequestedEvent> messageKafkaTemplate() {
-        return new KafkaTemplate<String, OrderRequestedEvent>(messageProducerFactory());
     }
 
     @Bean

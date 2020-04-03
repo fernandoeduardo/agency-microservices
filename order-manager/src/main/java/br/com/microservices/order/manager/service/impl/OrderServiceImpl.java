@@ -42,7 +42,7 @@ public class OrderServiceImpl implements OrderService {
 
         OrderRequestedEvent event = new OrderRequestedEvent(order.getId(), order.getCustomerId(), order.getAmount(),
                 request.getCreditCard());
-        
+
         template.send("requested-orders", event);
 
         return order.getId();

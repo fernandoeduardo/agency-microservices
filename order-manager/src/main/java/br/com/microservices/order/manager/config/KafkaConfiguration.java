@@ -1,6 +1,5 @@
 package br.com.microservices.order.manager.config;
 
-import br.com.microservices.order.manager.event.OrderRequestedEvent;
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -69,11 +68,6 @@ public class KafkaConfiguration {
         factory.setConsumerFactory(consumerFactory());
         return factory;
     }
-
-
-
-
-
 
 
 }
