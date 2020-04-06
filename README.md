@@ -3,15 +3,15 @@
 The main idea here is to create a basic micro-service project using the Saga pattern with Choreography approach. In addition, the project can be used to apply and exemplify some of the most popular technologies used today.
 
 **The project uses:**
--Java
--Spring Boot
--Jeager (Tracing)
--Kafka (Event Message)
--Feign (Web Communication)
--Swagger (Documentation)
--Refis (Cache)
--H2 (Data Base)
--Docker
+- Java
+- Spring Boot
+- Jeager (Tracing)
+- Kafka (Event Message)
+- Feign (Web Communication)
+- Swagger (Documentation)
+- Refis (Cache)
+- H2 (Data Base)
+- Docker
 
 
 # Business rule
@@ -21,7 +21,7 @@ moment, a purchase order is requested at the Order Manager, which saves it in th
 Finally, the Payment Processor consumes the event, makes the payment or not and produces a processed payment event.
 
 
-![Image of the Structure]
+![Image]
 (image.png)
 
 
