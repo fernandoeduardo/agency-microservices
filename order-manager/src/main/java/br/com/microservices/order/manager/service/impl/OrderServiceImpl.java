@@ -1,5 +1,7 @@
 package br.com.microservices.order.manager.service.impl;
 
+import br.com.microservices.order.manager.api.TicketInventoryApi;
+import br.com.microservices.order.manager.api.response.CheckHealthResponse;
 import br.com.microservices.order.manager.controller.request.CreateOrderRequest;
 import br.com.microservices.order.manager.controller.response.OrderResponse;
 import br.com.microservices.order.manager.event.OrderProcessedEvent;
@@ -26,19 +28,25 @@ public class OrderServiceImpl implements OrderService {
     private ObjectMapper objectMapper;
     private OrderRepository orderRepository;
     private KafkaTemplate<String, Object> template;
+    private TicketInventoryApi ticketInventoryApi;
 
     public OrderServiceImpl(OrderRepository orderRepository,
             KafkaTemplate<String, Object> template,
-            ObjectMapper objectMapper
+            ObjectMapper objectMapper,
+            TicketInventoryApi ticketInventoryApi
     ) {
         this.orderRepository = orderRepository;
         this.template = template;
         this.objectMapper = objectMapper;
+        this.ticketInventoryApi = ticketInventoryApi;
     }
 
     @Override
     @CacheEvict(cacheNames = "Orders", allEntries = true)
     public String save(CreateOrderRequest request) {
+
+
+        ticketInventoryApi.checkHealth();
 
         Order order = new Order(
                 UUID.randomUUID().toString(),
