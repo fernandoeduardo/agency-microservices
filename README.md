@@ -21,18 +21,23 @@ moment, a purchase order is requested at the Order Manager, which saves it in th
 Finally, the Payment Processor consumes the event, makes the payment or not and produces a processed payment event.
 
 
-**How To:**
+![Image of the Structure]
+(https://1drv.ms/u/s!AvCe_MLVnr7F7EYWigFZkYy9gtFd)
 
-- Start docke-compose;
+
+# How To:
+
+- Start docker-compose.
+
 
 - Start the 3 micro-services in the project:
-1. order-manager;
-2. ticket-inventory;
-3. payment-processor;
+    1. order-manager;
+    2. ticket-inventory;
+    3. payment-processor;
 
 
 - Create a new Order by making the Request below:
-
+````
 curl --location --request POST 'localhost:8081/orders' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -41,6 +46,8 @@ curl --location --request POST 'localhost:8081/orders' \
 	"creditCard" : "1234-5678-4321-8765"
 	
 }'
+````
+
 
 
 - Listen to the Topics in Kafka to see the messagens tha has been created in the flow.
@@ -51,7 +58,7 @@ Topics:
   - processed-payments
 
 - List created order and see the status:
-
+````
 curl --location --request GET 'localhost:8081/orders' \
 --header 'Content-Type: application/json'
-
+````
