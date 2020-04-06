@@ -45,7 +45,6 @@ public class OrderServiceImpl implements OrderService {
     @CacheEvict(cacheNames = "Orders", allEntries = true)
     public String save(CreateOrderRequest request) {
 
-
         ticketInventoryApi.checkHealth();
 
         Order order = new Order(
