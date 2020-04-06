@@ -9,7 +9,7 @@ The main idea here is to create a basic micro-service project using the Saga pat
 - Kafka (Event Message)
 - Feign (Web Communication)
 - Swagger (Documentation)
-- Refis (Cache)
+- Redis (Cache)
 - H2 (Data Base)
 - Docker
 
@@ -19,10 +19,6 @@ The project is based on the idea of a travel agency. The SAGA begins with the pu
 moment, a purchase order is requested at the Order Manager, which saves it in the Data Base (H2) and creates an event
  in Kafka. Another micro-service (Ticket Inventory) consumes this event, saves the information in H2 and creates a new payment event.
 Finally, the Payment Processor consumes the event, makes the payment or not and produces a processed payment event.
-
-
-![Image]
-(image.png)
 
 
 # How To:
