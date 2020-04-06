@@ -22,7 +22,7 @@ Finally, the Payment Processor consumes the event, makes the payment or not and 
 
 
 ![Image of the Structure]
-(https://1drv.ms/u/s!AvCe_MLVnr7F7EYWigFZkYy9gtFd)
+(image.png)
 
 
 # How To:
@@ -36,7 +36,7 @@ Finally, the Payment Processor consumes the event, makes the payment or not and 
     3. payment-processor;
 
 
-- Create a new Order by making the Request below:
+- Create a new Orders by making the Request below:
 ````
 curl --location --request POST 'localhost:8081/orders' \
 --header 'Content-Type: application/json' \
@@ -50,7 +50,7 @@ curl --location --request POST 'localhost:8081/orders' \
 
 
 
-- Listen to the Topics in Kafka to see the messagens tha has been created in the flow.
+- Listen to the Topics in Kafka to see the messages that has been created in the flow.
 Topics:
   - requested-orders
   - processed-orders
