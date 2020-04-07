@@ -30,7 +30,7 @@ public class KafkaConfiguration {
     }
 
     @Bean
-    public NewTopic message() {
+    public NewTopic requestedOrders() {
         return new NewTopic("requested-orders", 1, (short) 1);
     }
 

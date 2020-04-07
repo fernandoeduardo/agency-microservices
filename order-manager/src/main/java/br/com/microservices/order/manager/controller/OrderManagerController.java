@@ -29,7 +29,7 @@ public class OrderManagerController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List<OrderResponse> getOrders() {
+    public List<OrderResponse> findAll() {
         return this.orderService.findAll();
     }
 }

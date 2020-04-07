@@ -19,6 +19,9 @@ import java.util.Map;
 @Configuration
 public class KafkaConfiguration {
 
+    private static String PAYMENT_GROUP_ID = "payment-group-id";
+    private static String PROCESSED_PAYMENT_TOPIC =  "processed-payments";
+
     @Value(value = "${spring.kafka.bootstrap-servers}")
     private String bootstrap;
 
@@ -48,7 +51,7 @@ public class KafkaConfiguration {
     @Bean
     public ConsumerFactory<String, String> consumerFactory() {
         Map<String, Object> props = new HashMap<>();
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, "payment-group-id");
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, PAYMENT_GROUP_ID);
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrap);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
@@ -57,7 +60,7 @@ public class KafkaConfiguration {
 
     @Bean
     public NewTopic paymentProcessed() {
-        return new NewTopic("processed-payments", 1, (short) 1);
+        return new NewTopic(PROCESSED_PAYMENT_TOPIC, 1, (short) 1);
     }
 
     @Bean

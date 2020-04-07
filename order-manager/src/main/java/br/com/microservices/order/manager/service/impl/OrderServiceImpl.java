@@ -1,7 +1,6 @@
 package br.com.microservices.order.manager.service.impl;
 
 import br.com.microservices.order.manager.api.TicketInventoryApi;
-import br.com.microservices.order.manager.api.response.CheckHealthResponse;
 import br.com.microservices.order.manager.controller.request.CreateOrderRequest;
 import br.com.microservices.order.manager.controller.response.OrderResponse;
 import br.com.microservices.order.manager.event.OrderProcessedEvent;
@@ -81,11 +80,11 @@ public class OrderServiceImpl implements OrderService {
 
         Optional<Order> optionalOrder = orderRepository.findById(orderProcessedEvent.getOrderId());
 
-        if(optionalOrder.get() != null) {
+        if (optionalOrder.isPresent()) {
             Order order = optionalOrder.get();
             order.setStatus(orderProcessedEvent.getStatus());
             orderRepository.save(order);
         }
-
     }
+
 }
